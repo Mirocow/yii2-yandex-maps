@@ -1,0 +1,28 @@
+{
+    "name": "mirocow/yii2-yandex-maps",
+    "description": "Yii 2 yandex map module",
+    "keywords": ["yii", "yii2", "map", "yandex"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/Mirocow/yii2-yandex-maps/issues?state=open",
+        "wiki": "http://www.yiidoc.com/wiki/",
+        "source": "https://github.com/Mirocow/yii2-yandex-maps"
+    },	
+    "authors": [
+        {
+            "name": "Mirocow",
+            "email": "mr.mirocow@gmail.com",
+            "homepage": "http://www.mirocow.com"
+        }			
+    ],
+	"minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "yii\\yandexmaps\\": ""
+        }
+    }
+}
