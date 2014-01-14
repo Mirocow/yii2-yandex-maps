@@ -4,7 +4,7 @@
 
 ## Components ##
 
-- [`mirocow\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsapi)
+- [`mirocow\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsapi)
 - [`mirocow\yandexmaps\Map`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsmap)
 - [`mirocow\yandexmaps\Canvas`](https://github.com/mirocow/yii2-yandex-maps#yandexmapscanvas)
 - `mirocow\yandexmaps\JavaScript`
