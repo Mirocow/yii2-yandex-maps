@@ -9,6 +9,8 @@ use yii;
 use yii\base\Exception;
 use yii\base\Widget;
 use yii\helpers\Html;
+use \yii\base\Event;
+use \yii\base\View;
 
 /**
  * @property Api $api
@@ -16,7 +18,9 @@ use yii\helpers\Html;
  */
 class Canvas extends Widget
 {
-	/** @var string */
+	const EVENT_AFTER_RENDER = 1;
+    
+    /** @var string */
 	public static $componentId = 'yandexMapsApi';
 
 	/** @var string */
@@ -35,8 +39,14 @@ class Canvas extends Widget
 	 */
 	public function getApi()
 	{
-		return Yii::app()->getComponent(self::$componentId);
+		return Yii::$app->getComponent(self::$componentId);
 	}
+    
+    public function init(){
+        Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
+            Yii::$app->getComponent('yandexMapsApi')->render();
+        });        
+    }
 
 	/**
 	 * @return Map
@@ -66,15 +76,7 @@ class Canvas extends Widget
 	{
 		parent::run();
 		$this->htmlOptions['id'] = $this->map->id;
-		echo Html::tag($this->tagName, $this->htmlOptions, '');
-		$this->onAfterRender(new \CEvent($this));
+		echo Html::tag($this->tagName, '', $this->htmlOptions);
 	}
 
-	/**
-	 * @param \CEvent $event
-	 */
-	public function onAfterRender(\CEvent $event)
-	{
-		$this->raiseEvent('onAfterRender', $event);
-	}
 }

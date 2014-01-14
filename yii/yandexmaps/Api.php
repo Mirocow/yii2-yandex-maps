@@ -76,7 +76,7 @@ class Api extends Component
 			.'/?lang=' . $this->language
 			. '&load=' . $this->packages;
 		
-		Yii::$app->view->registerJsFile($url, View::POS_END);
+		Yii::$app->view->registerJsFile($url, [], ['position' => View::POS_END]);
 	}
 
 	/**
@@ -190,9 +190,9 @@ class Api extends Component
 				foreach ($map->controls as $control) {
 					if (count($control) > 1) {
 						$config = $this->encodeArray($control[1]);
-						$controls .= "\n\t.add('$control[0]', $config)";
+						$controls .= "\n\t.add($control[0], $config)";
 					} else {
-						$controls .= "\n\t.add('$control[0]')";
+						$controls .= "\n\t.add($control[0])";
 					}
 				}
 				$js .= "$controls;\n";

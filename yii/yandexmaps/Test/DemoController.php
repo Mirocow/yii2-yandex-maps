@@ -43,7 +43,7 @@ class DemoController extends Controller
 	 */
 	public function getApi()
 	{
-		return Yii::app()->getComponent('yandexMapsApi');
+		return Yii::$app->getComponent('yandexMapsApi');
 	}
 
 	/**

@@ -8,7 +8,7 @@ namespace yii\yandexmaps;
 use yii\base\Exception;
 
 //use StdLib\VarDumper;
-use yandexmaps\Interfaces;
+use yii\yandexmaps\Interfaces;
 
 /**
  * @property string $id

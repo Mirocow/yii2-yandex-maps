@@ -23,21 +23,11 @@ __Usage__
 
 Attach component to application (e.g. edit config/main.php):
 ```php
-'components' => array(
-	'yandexMapsApi' => array(
-		'class' => 'yii\yandexmaps\Api';
-	)
- ),
-```
-
-Important! You need render script in controller after render view,
-proposed in View::afterRender():
-```php
-protected function afterRender($view, &$output)
-{
-	Yii::$app->getComponent('yandexMapsApi')->render();
-	parent::afterRender($view, $output);
-}
+'components' => [
+	'yandexMapsApi' => [
+		'class' => 'yii\yandexmaps\Api',
+	]
+ ],
 ```
 
 ### yii\yandexmaps\Map ###
@@ -47,18 +37,23 @@ Map instance.
 __Usage__
 
 ```php
-$map = new Map('demo', [
-		'center' => ['js:ymaps.geolocation.latitude', 'js:ymaps.geolocation.longitude'],
-		'zoom' => 10,
-		// Enable zoom with mouse scroll
-		'behaviors' => array('default', 'scrollZoom'),
-		'type' => "yandex#map",
-	], 
-	[
-		// Permit zoom only fro 9 to 11
-		'minZoom' => 9,
-		'maxZoom' => 11,
-	]);
+    $map = new YandexMap('yandex_map', [
+            'center' => [55.7372, 37.6066],
+            'zoom' => 10,
+            // Enable zoom with mouse scroll
+            'behaviors' => array('default', 'scrollZoom'),
+            'type' => "yandex#map",
+        ], 
+        [
+            // Permit zoom only fro 9 to 11
+            'minZoom' => 9,
+            'maxZoom' => 11,
+            'controls' => [
+              "new ymaps.control.SmallZoomControl()",
+              "new ymaps.control.TypeSelector(['yandex#map', 'yandex#satellite'])",  
+            ],                    
+        ]                
+    );             
 ```
 
 ### yii\yandexmaps\Canvas ###
@@ -72,12 +67,12 @@ Simple add widget to view:
 
 use yii\yandexmaps as YandexMaps;
 
-YandexMaps::widget([
-		'htmlOptions' => ]
-			'style' => 'height: 400px;',
-		],
-		'map' => $map,
-	]);
+echo YandexCanvas::widget([
+        'htmlOptions' => [
+            'style' => 'height: 400px;',
+        ],
+        'map' => $map,
+    ]);
 ```
 
 *more example you can found in [Test](https://github.com/slavcodev/yii-yandex-maps/blob/master/Test) folder*
