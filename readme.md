@@ -66,7 +66,7 @@ __Usage__
 Simple add widget to view:
 ```php
 
-use mirocow\yandexmaps as YandexMaps;
+use mirocow\yandexmaps\Canvas as YandexMaps;
 
 echo YandexCanvas::widget([
         'htmlOptions' => [
