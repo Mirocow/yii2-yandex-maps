@@ -1,9 +1,9 @@
 <?php
 /**
- * yii\yandexmaps\Canvas class file.
+ * mirocow\yandexmaps\Canvas class file.
  */
 
-namespace yii\yandexmaps;
+namespace mirocow\yandexmaps;
 
 use yii;
 use yii\base\Exception;

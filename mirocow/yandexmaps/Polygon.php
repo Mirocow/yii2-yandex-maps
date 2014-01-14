@@ -1,14 +1,14 @@
 <?php
 /**
- * yii\yandexmaps\Polyline class file.
+ * mirocow\yandexmaps\Polygon class file.
  */
 
-namespace yii\yandexmaps;
+namespace mirocow\yandexmaps;
 
 /**
  * Polyline
  */
-class Polyline extends GeoObject
+class Polygon extends GeoObject
 {
 	/**
 	 * @param array $geometry
@@ -19,7 +19,7 @@ class Polyline extends GeoObject
 	{
 		$feature = array(
 			'geometry' => array(
-				'type' => "LineString",
+				'type' => "Polygon",
 				'coordinates' => $geometry,
 			),
 			'properties' => $properties,

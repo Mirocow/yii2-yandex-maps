@@ -1,9 +1,9 @@
 <?php
 /**
- * yii\yandexmaps\Interfaces\GeoObject class file.
+ * mirocow\yandexmaps\Interfaces\GeoObject class file.
  */
 
-namespace yii\yandexmaps\Interfaces;
+namespace mirocow\yandexmaps\Interfaces;
 
 /**
  * GeoObject interface.

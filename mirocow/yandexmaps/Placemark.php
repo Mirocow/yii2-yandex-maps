@@ -1,14 +1,14 @@
 <?php
 /**
- * yii\yandexmaps\Polygon class file.
+ * mirocow\yandexmaps\Placemark class file.
  */
 
-namespace yii\yandexmaps;
+namespace mirocow\yandexmaps;
 
 /**
- * Polyline
+ * Placemark
  */
-class Polygon extends GeoObject
+class Placemark extends GeoObject
 {
 	/**
 	 * @param array $geometry
@@ -19,7 +19,7 @@ class Polygon extends GeoObject
 	{
 		$feature = array(
 			'geometry' => array(
-				'type' => "Polygon",
+				'type' => "Point",
 				'coordinates' => $geometry,
 			),
 			'properties' => $properties,

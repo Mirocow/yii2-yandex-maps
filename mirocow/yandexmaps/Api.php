@@ -1,9 +1,9 @@
 <?php
 /**
- * yii\yandexmaps\Api class file.
+ * mirocow\yandexmaps\Api class file.
  */
 
-namespace yii\yandexmaps;
+namespace mirocow\yandexmaps;
 
 use Yii;
 use yii\base\Component;

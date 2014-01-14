@@ -4,19 +4,19 @@
 
 ## Components ##
 
-- [`yii\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsapi)
-- [`yii\yandexmaps\Map`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsmap)
-- [`yii\yandexmaps\Canvas`](https://github.com/mirocow/yii2-yandex-maps#yandexmapscanvas)
-- `yii\yandexmaps\JavaScript`
-- `yii\yandexmaps\Placemark`
-- `yii\yandexmaps\Polyline`
+- [`mirocow\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsapi)
+- [`mirocow\yandexmaps\Map`](https://github.com/mirocow/yii2-yandex-maps#yandexmapsmap)
+- [`mirocow\yandexmaps\Canvas`](https://github.com/mirocow/yii2-yandex-maps#yandexmapscanvas)
+- `mirocow\yandexmaps\JavaScript`
+- `mirocow\yandexmaps\Placemark`
+- `mirocow\yandexmaps\Polyline`
 - TODO: [Geo XML](http://api.yandex.ru/maps/doc/jsapi/2.x/dg/concepts/geoxml.xml)
 - TODO: [GeoObject](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/GeoObject.xml)
 - TODO: [Balloon](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Balloon.xml)
 - TODO: [Hint](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Hint.xml)
 - TODO: [Clusterer](http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml)
 
-### yii\yandexmaps\Api ###
+### mirocow\yandexmaps\Api ###
 
 Application components which register scripts.
 
@@ -26,12 +26,12 @@ Attach component to application (e.g. edit config/main.php):
 ```php
 'components' => [
 	'yandexMapsApi' => [
-		'class' => 'yii\yandexmaps\Api',
+		'class' => 'mirocow\yandexmaps\Api',
 	]
  ],
 ```
 
-### yii\yandexmaps\Map ###
+### mirocow\yandexmaps\Map ###
 
 Map instance.
 
@@ -57,7 +57,7 @@ __Usage__
     );             
 ```
 
-### yii\yandexmaps\Canvas ###
+### mirocow\yandexmaps\Canvas ###
 
 This is widget which render html tag for your map.
 
@@ -66,7 +66,7 @@ __Usage__
 Simple add widget to view:
 ```php
 
-use yii\yandexmaps as YandexMaps;
+use mirocow\yandexmaps as YandexMaps;
 
 echo YandexCanvas::widget([
         'htmlOptions' => [
@@ -76,7 +76,7 @@ echo YandexCanvas::widget([
     ]);
 ```
 
-### yii\yandexmaps\Clusterer ###
+### mirocow\yandexmaps\Clusterer ###
 
 ```js
     for (var i in map_point) {

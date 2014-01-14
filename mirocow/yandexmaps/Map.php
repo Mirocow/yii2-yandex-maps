@@ -1,14 +1,14 @@
 <?php
 /**
- * yii\yandexmaps\Map class file.
+ * mirocow\yandexmaps\Map class file.
  */
 
-namespace yii\yandexmaps;
+namespace mirocow\yandexmaps;
 
 use yii\base\Exception;
 
 //use StdLib\VarDumper;
-use yii\yandexmaps\Interfaces;
+use mirocow\yandexmaps\Interfaces;
 
 /**
  * @property string $id
