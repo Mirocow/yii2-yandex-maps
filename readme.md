@@ -14,6 +14,7 @@
 - TODO: [GeoObject](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/GeoObject.xml)
 - TODO: [Balloon](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Balloon.xml)
 - TODO: [Hint](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Hint.xml)
+- TODO: [Clusterer](http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml)
 
 ### yii\yandexmaps\Api ###
 
@@ -75,4 +76,30 @@ echo YandexCanvas::widget([
     ]);
 ```
 
-*more example you can found in [Test](https://github.com/slavcodev/yii-yandex-maps/blob/master/Test) folder*
+### yii\yandexmaps\Clusterer ###
+
+```js
+    for (var i in map_point) {
+    points[i] = new ymaps.GeoObject({
+     geometry : {
+      type: 'Point',
+      coordinates : [map_point[i]['lat'],map_point[i]['lng']]
+     },
+     properties : {
+      balloonContentBody : map_point[i]['body']
+      // hintContent : 'подробнее'
+     }
+    },
+    {
+     iconImageHref: '/i/' + map_point[i]['spec']+'.png',
+     iconImageSize: [29,29],
+     balloonIconImageHref: '/i/' + map_point[i]['spec']+'.png',
+     balloonIconImageSize: [29,29],
+     hasBalloon: true
+    });
+   }
+
+   var clusterer = new ymaps.Clusterer();
+   clusterer.add(points);
+   map.geoObjects.add(clusterer);
+```
