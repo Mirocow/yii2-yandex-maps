@@ -84,7 +84,7 @@ class Api extends Component
 	 */
 	protected function registerScript()
 	{
-		$js = "ymaps.ready(function() {\n";
+		$js = "var Maps = [];\nymaps.ready(function() {\n";
 
 		foreach ($this->_objects as $var => $object) {
 			$js .= $this->generateObject($object, $var)."\n";
@@ -151,7 +151,7 @@ class Api extends Component
 
 		$js = "new ymaps.Map('$id', $state, $options)";
 		if (null !== $var) {
-			$js = "var $var = $js;\n";
+			$js = "Maps['$var'] = $js;\n";
 
 			if (count($map->objects) > 0) {
 				$jsObj = array();
@@ -186,7 +186,7 @@ class Api extends Component
 			}
 
 			if (count($map->controls) > 0) {
-				$controls = "\n$id.controls";
+				$controls = "\nMaps['$id'].controls";
 				foreach ($map->controls as $control) {
 					if (count($control) > 1) {
 						$config = $this->encodeArray($control[1]);
