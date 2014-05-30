@@ -5,12 +5,14 @@
 
 namespace mirocow\yandexmaps;
 
-use Yii;
+use mirocow\yandexmaps\Interfaces;
+use mirocow\yandexmaps\objects;
+
+use yii;
 use yii\base\Component;
 use yii\helpers\Json;
 use yii\web\View;
 use StdLib\VarDumper;
-use yandexmaps\Interfaces;
 
 /**
  * Yandex Maps API component.
@@ -21,6 +23,13 @@ class Api extends Component
 
 	/** @var string */
 	public $protocol = 'http';
+    
+    /** @var string */
+    public $uri = 'api-maps.yandex.ru';
+    
+    /** @var string */
+    public $api_version = '2.0-stable';
+    
 	/** @var string */
 	public $language = 'ru-RU';
 	/** @var array */
@@ -72,7 +81,9 @@ class Api extends Component
 			$this->packages = implode(',', $this->packages);
 		}
 
-		$url = $this->protocol . '://api-maps.yandex.ru/2.0-stable'
+		$url = $this->protocol . 
+            '://'.$this->uri.'/' . 
+            $this->api_version
 			.'/?lang=' . $this->language
 			. '&load=' . $this->packages;
 		
@@ -109,7 +120,7 @@ class Api extends Component
 					foreach ($object->getEvents() as $event => $handle) {
 						$event = Json::encode($event);
 						$handle = Json::encode($handle);
-						$events .= "\n\t.add($event, $handle)";
+						$events .= "\n.add($event, $handle)";
 					}
 					$js .= "$events;\n";
 				}
@@ -154,26 +165,52 @@ class Api extends Component
 			$js = "Maps['$var'] = $js;\n";
 
 			if (count($map->objects) > 0) {
+                
 				$jsObj = array();
 				$objBegin = false;
 				$objects = '';
-				foreach ($map->objects as $object) {
+                $clusterer = "var points = [];\n";
+                
+				foreach ($map->objects as $i => $object) {
 					if (!is_string($object) && !$object instanceof GeoObject) {
 						if ($objBegin) {
 							$jsObj[] = $object;
-						} else {
-							$js .= "\n$object";
-						}
+						} elseif(is_callable($object)) {
+                            try{
+                                $object = $object->__invoke();
+                                $js .= "\n$object";
+                            } catch(\Exception $e){
+                                //
+                            }                                                                                    
+                        } else {
+                            $js .= "\n$object";
+                        }
 					} else {
 						$objBegin = true;
+                        // Load only GeoObjects instanceof GeoObject
 						if ($object instanceof GeoObject) {
-							$object = $this->generateObject($object);
+							$_object = $this->generateObject($object);
+                            
+                            // use Clusterer
+                            if($map->use_clusterer && $object instanceof objects\Placemark){
+                                $clusterer .= "points[$i] = $_object;\n";
+                            } else {
+                                $objects .= ".add($_object)\n";
+                            }
+                            
+						} elseif(is_string($_object)) {
+                            $js .= "$_object;\n";
 						}
-						$objects .= "\n\t.add($object)";
 					}
 				}
+                
+                if($map->use_clusterer){
+                    $js .= "$clusterer\nvar clusterer = new ymaps.Clusterer();clusterer.add(points);";
+                    $objects .= ".add(clusterer)";
+                }
+                
 				if (!empty($objects)){
-					$js .= "\n$var.geoObjects$objects;\n";
+					$js .= "\nMaps['$id'].geoObjects$objects;\n";
 				}
 				if (count($jsObj) > 0) {
 					$objects = '';
@@ -202,7 +239,7 @@ class Api extends Component
 		return $js;
 	}
 
-	public function generatePlacemark(Placemark $object, $var = null)
+	public function generatePlacemark(objects\Placemark $object, $var = null)
 	{
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);
@@ -216,7 +253,7 @@ class Api extends Component
 		return $js;
 	}
 
-	public function generatePolyline(Polyline $object, $var = null)
+	public function generatePolyline(objects\Polyline $object, $var = null)
 	{
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);
@@ -230,7 +267,7 @@ class Api extends Component
 		return $js;
 	}
 
-	public function generatePolygon(Polygon $object, $var = null)
+	public function generatePolygon(objects\Polygon $object, $var = null)
 	{
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);

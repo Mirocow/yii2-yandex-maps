@@ -1,14 +1,16 @@
 <?php
 /**
- * mirocow\yandexmaps\Polyline class file.
+ * mirocow\yandexmaps\Placemark class file.
  */
 
-namespace mirocow\yandexmaps;
+namespace mirocow\yandexmaps\objects;
+
+use mirocow\yandexmaps\GeoObject;
 
 /**
- * Polyline
+ * Placemark
  */
-class Polyline extends GeoObject
+class Placemark extends GeoObject
 {
 	/**
 	 * @param array $geometry
@@ -19,7 +21,7 @@ class Polyline extends GeoObject
 	{
 		$feature = array(
 			'geometry' => array(
-				'type' => "LineString",
+				'type' => "Point",
 				'coordinates' => $geometry,
 			),
 			'properties' => $properties,

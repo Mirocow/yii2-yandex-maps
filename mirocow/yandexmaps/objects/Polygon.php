@@ -3,7 +3,9 @@
  * mirocow\yandexmaps\Polygon class file.
  */
 
-namespace mirocow\yandexmaps;
+namespace mirocow\yandexmaps\objects;
+
+use mirocow\yandexmaps\GeoObject;
 
 /**
  * Polyline
@@ -36,6 +38,22 @@ class Polygon extends GeoObject
 		if (isset($geometry['coordinates'])) {
 			$geometry = $geometry['coordinates'];
 		}
-		return $geometry;
+        
+        $content = '';
+        
+        if(is_array($geometry)){
+            foreach($geometry as $_points){
+                $point = [$_points->latitude, $_points->longitude];
+                $points[] = $point;
+            }
+            if(isset($points)){
+                $content = [$points];            
+            }
+        } else {
+            $content = $geometry;
+        }
+        
+		return $content;
 	}
+        
 }

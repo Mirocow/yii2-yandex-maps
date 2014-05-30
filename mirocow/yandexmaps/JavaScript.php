@@ -5,7 +5,7 @@
 
 namespace mirocow\yandexmaps;
 
-use Yii;
+use yii;
 use yii\base\Component;
 
 /**

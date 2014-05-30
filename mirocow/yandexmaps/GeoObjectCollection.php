@@ -5,7 +5,7 @@
 
 namespace mirocow\yandexmaps;
 
-use yandexmaps\Interfaces;
+use mirocow\yandexmaps\Interfaces;
 
 /**
  * Objects collection.

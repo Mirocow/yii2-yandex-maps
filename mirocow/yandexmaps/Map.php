@@ -40,6 +40,8 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	public $state = array();
 	/** @var array */
 	public $options = array();
+    
+    public $use_clusterer = false;
 
 	/** @var string */
 	private $_id;
@@ -49,7 +51,7 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	private $_controls = array();
 
 	/** @var array */
-	private $_events = array();
+	private $_events = array();    
 
 	/**
 	 * @param string $id
@@ -68,6 +70,10 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 			$this->setEvents($options['events']);
 			unset($options['events']);
 		}
+        if (isset($options['objects'])) {
+            $this->setObjects($options['objects']);
+            unset($options['objects']);
+        }                
 		$this->options = $options;
 	}
 
@@ -194,5 +200,5 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 		}
 		$this->_controls[$control[0]] = $control;
 		return $this;
-	}
+	}   
 }
