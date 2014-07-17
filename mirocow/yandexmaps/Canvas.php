@@ -19,12 +19,15 @@ use \yii\base\View;
 class Canvas extends Widget
 {
 	const EVENT_AFTER_RENDER = 1;
+  
+  private $isRendered = false;
     
-    /** @var string */
+  /** @var string */
 	public static $componentId = 'yandexMapsApi';
 
 	/** @var string */
 	public $tagName = 'div';
+  
 	/** @var array */
 	public $htmlOptions = array(
 		'class' => 'yandex-map',
@@ -42,11 +45,14 @@ class Canvas extends Widget
 		return Yii::$app->getComponent(self::$componentId);
 	}
     
-    public function init(){
-        Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
+  public function init(){
+      Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
+          if(!$this->isRendered){
             Yii::$app->getComponent('yandexMapsApi')->render();
-        });        
-    }
+            $this->isRendered = true;
+          }
+      });        
+  }
 
 	/**
 	 * @return Map
