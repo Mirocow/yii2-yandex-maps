@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Yii2-yandex-maps by Mirocow</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Yii2-yandex-maps</h1>
+          <h2>yii2-yandex-maps</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Mirocow/yii2-yandex-maps/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Mirocow/yii2-yandex-maps/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Mirocow/yii2-yandex-maps" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="yii2-yandex-maps-components" class="anchor" href="#yii2-yandex-maps-components"><span class="octicon octicon-link"></span></a>Yii2 Yandex Maps Components</h1>
+
+<hr><h2>
+<a name="components" class="anchor" href="#components"><span class="octicon octicon-link"></span></a>Components</h2>
+
+<ul>
+<li><a href="https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsapi"><code>mirocow\yandexmaps\Api</code></a></li>
+<li><a href="https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsmap"><code>mirocow\yandexmaps\Map</code></a></li>
+<li><a href="https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapscanvas"><code>mirocow\yandexmaps\Canvas</code></a></li>
+<li><code>mirocow\yandexmaps\JavaScript</code></li>
+<li><code>mirocow\yandexmaps\Placemark</code></li>
+<li><code>mirocow\yandexmaps\Polyline</code></li>
+<li>TODO: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/dg/concepts/geoxml.xml">Geo XML</a>
+</li>
+<li>TODO: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/GeoObject.xml">GeoObject</a>
+</li>
+<li>TODO: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Balloon.xml">Balloon</a>
+</li>
+<li>TODO: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Hint.xml">Hint</a>
+</li>
+<li>TODO: <a href="http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml">Clusterer</a>
+</li>
+</ul><h3>
+<a name="mirocowyandexmapsapi" class="anchor" href="#mirocowyandexmapsapi"><span class="octicon octicon-link"></span></a>mirocow\yandexmaps\Api</h3>
+
+<p>Application components which register scripts.</p>
+
+<p><strong>Usage</strong></p>
+
+<p>Attach component to application (e.g. edit config/main.php):</p>
+
+<div class="highlight highlight-php"><pre><span class="s1">'components'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'yandexMapsApi'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'mirocow\yandexmaps\Api'</span><span class="p">,</span>
+    <span class="p">]</span>
+ <span class="p">],</span>
+</pre></div>
+
+<h3>
+<a name="mirocowyandexmapsmap" class="anchor" href="#mirocowyandexmapsmap"><span class="octicon octicon-link"></span></a>mirocow\yandexmaps\Map</h3>
+
+<p>Map instance.</p>
+
+<p><strong>Usage</strong></p>
+
+<div class="highlight highlight-php"><pre>    <span class="nv">$map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YandexMap</span><span class="p">(</span><span class="s1">'yandex_map'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s1">'center'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mf">55.7372</span><span class="p">,</span> <span class="mf">37.6066</span><span class="p">],</span>
+            <span class="s1">'zoom'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="c1">// Enable zoom with mouse scroll</span>
+            <span class="s1">'behaviors'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'default'</span><span class="p">,</span> <span class="s1">'scrollZoom'</span><span class="p">),</span>
+            <span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="s2">"yandex#map"</span><span class="p">,</span>
+        <span class="p">],</span> 
+        <span class="p">[</span>
+            <span class="c1">// Permit zoom only fro 9 to 11</span>
+            <span class="s1">'minZoom'</span> <span class="o">=&gt;</span> <span class="mi">9</span><span class="p">,</span>
+            <span class="s1">'maxZoom'</span> <span class="o">=&gt;</span> <span class="mi">11</span><span class="p">,</span>
+            <span class="s1">'controls'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+              <span class="s2">"new ymaps.control.SmallZoomControl()"</span><span class="p">,</span>
+              <span class="s2">"new ymaps.control.TypeSelector(['yandex#map', 'yandex#satellite'])"</span><span class="p">,</span>  
+            <span class="p">],</span>                    
+        <span class="p">]</span>                
+    <span class="p">);</span>             
+</pre></div>
+
+<h3>
+<a name="mirocowyandexmapscanvas" class="anchor" href="#mirocowyandexmapscanvas"><span class="octicon octicon-link"></span></a>mirocow\yandexmaps\Canvas</h3>
+
+<p>This is widget which render html tag for your map.</p>
+
+<p><strong>Usage</strong></p>
+
+<p>Simple add widget to view:</p>
+
+<div class="highlight highlight-php"><pre>
+<span class="k">use</span> <span class="nx">mirocow\yandexmaps\Canvas</span> <span class="k">as</span> <span class="nx">YandexMaps</span><span class="p">;</span>
+
+<span class="k">echo</span> <span class="nx">YandexCanvas</span><span class="o">::</span><span class="na">widget</span><span class="p">([</span>
+        <span class="s1">'htmlOptions'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'style'</span> <span class="o">=&gt;</span> <span class="s1">'height: 400px;'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'map'</span> <span class="o">=&gt;</span> <span class="nv">$map</span><span class="p">,</span>
+    <span class="p">]);</span>
+</pre></div>
+
+<h3>
+<a name="mirocowyandexmapsclusterer" class="anchor" href="#mirocowyandexmapsclusterer"><span class="octicon octicon-link"></span></a>mirocow\yandexmaps\Clusterer</h3>
+
+<div class="highlight highlight-php"><pre>
+    <span class="nv">$points</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="nv">$points</span><span class="p">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mirocow\yandexmaps\objects\Placemark</span><span class="p">(</span>
+            <span class="p">[</span><span class="nv">$point</span><span class="o">-&gt;</span><span class="na">latitude</span><span class="p">,</span> <span class="nv">$point</span><span class="o">-&gt;</span><span class="na">longitude</span><span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">'balloonContentBody'</span> <span class="o">=&gt;</span> <span class="s1">'Annonunce text'</span><span class="p">,</span> 
+                <span class="s1">'hintContent'</span> <span class="o">=&gt;</span> <span class="s1">'next&gt;&gt;&gt;'</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">'iconImageHref'</span> <span class="o">=&gt;</span> <span class="nv">$img_path</span><span class="p">,</span>
+                <span class="s1">'iconImageSize'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">29</span><span class="p">,</span> <span class="mi">29</span><span class="p">],</span>
+                <span class="s1">'balloonIconImageHref'</span> <span class="o">=&gt;</span> <span class="nv">$img_path</span><span class="p">,</span>
+                <span class="s1">'balloonIconImageSize'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">29</span><span class="p">,</span> <span class="mi">29</span><span class="p">],</span>
+                <span class="s1">'hasBalloon'</span> <span class="o">=&gt;</span> <span class="k">true</span>            
+            <span class="p">]</span>
+        <span class="p">);</span>
+
+    <span class="nv">$map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YandexMap</span><span class="p">(</span><span class="s1">'yandex_map_polygon'</span><span class="p">,</span> 
+        <span class="p">[</span>
+            <span class="s1">'center'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'55.7372'</span><span class="p">,</span> <span class="s1">'37.6066'</span><span class="p">],</span>
+            <span class="s1">'zoom'</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="c1">// Enable zoom with mouse scroll</span>
+            <span class="s1">'behaviors'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'default'</span><span class="p">,</span> <span class="s1">'scrollZoom'</span><span class="p">),</span>
+            <span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="s2">"yandex#map"</span><span class="p">,</span>
+        <span class="p">],</span> 
+        <span class="p">[</span>
+            <span class="c1">//'minZoom' =&gt; 9,</span>
+            <span class="c1">//'maxZoom' =&gt; 20,</span>
+            <span class="s1">'controls'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+              <span class="s2">"new ymaps.control.SmallZoomControl()"</span><span class="p">,</span>
+              <span class="s2">"new ymaps.control.TypeSelector(['yandex#map', 'yandex#satellite'])"</span><span class="p">,</span>  
+            <span class="p">],</span>
+            <span class="s1">'objects'</span> <span class="o">=&gt;</span> <span class="nv">$points</span>                        
+        <span class="p">]</span>              
+    <span class="p">);</span>
+
+    <span class="nv">$map</span><span class="o">-&gt;</span><span class="na">use_clusterer</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+
+    <span class="k">echo</span> <span class="nx">YandexCanvas</span><span class="o">::</span><span class="na">widget</span><span class="p">([</span>
+            <span class="s1">'htmlOptions'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">'style'</span> <span class="o">=&gt;</span> <span class="s1">'height: 500px; width: 370px;'</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s1">'map'</span> <span class="o">=&gt;</span> <span class="nv">$map</span><span class="p">,</span>
+        <span class="p">]);</span>
+</pre></div>
+        </section>
+
+        <footer>
+          Yii2-yandex-maps is maintained by <a href="https://github.com/Mirocow">Mirocow</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
