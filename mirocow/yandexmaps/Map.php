@@ -41,7 +41,7 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	/** @var array */
 	public $options = array();
     
-    public $use_clusterer = false;
+  public $use_clusterer = false;
 
 	/** @var string */
 	private $_id;

@@ -24,11 +24,11 @@ class Api extends Component
 	/** @var string */
 	public $protocol = 'http';
     
-    /** @var string */
-    public $uri = 'api-maps.yandex.ru';
-    
-    /** @var string */
-    public $api_version = '2.0-stable';
+  /** @var string */
+  public $uri = 'api-maps.yandex.ru';
+  
+  /** @var string */
+  public $api_version = '2.0-stable';
     
 	/** @var string */
 	public $language = 'ru-RU';
@@ -169,45 +169,45 @@ class Api extends Component
 				$jsObj = array();
 				$objBegin = false;
 				$objects = '';
-                $clusterer = "var points = [];\n";
-                
+        $clusterer = "var points = [];\n";
+        
 				foreach ($map->objects as $i => $object) {
 					if (!is_string($object) && !$object instanceof GeoObject) {
 						if ($objBegin) {
 							$jsObj[] = $object;
 						} elseif(is_callable($object)) {
-                            try{
-                                $object = $object->__invoke();
-                                $js .= "\n$object";
-                            } catch(\Exception $e){
-                                //
-                            }                                                                                    
-                        } else {
-                            $js .= "\n$object";
-                        }
+                try{
+                    $object = $object->__invoke();
+                    $js .= "\n$object";
+                } catch(\Exception $e){
+                    //
+                }                                                                                    
+            } else {
+                $js .= "\n$object";
+            }
 					} else {
 						$objBegin = true;
                         // Load only GeoObjects instanceof GeoObject
 						if ($object instanceof GeoObject) {
 							$_object = $this->generateObject($object);
-                            
-                            // use Clusterer
-                            if($map->use_clusterer && $object instanceof objects\Placemark){
-                                $clusterer .= "points[$i] = $_object;\n";
-                            } else {
-                                $objects .= ".add($_object)\n";
-                            }
+              
+              // use Clusterer
+              if($map->use_clusterer && $object instanceof objects\Placemark){
+                  $clusterer .= "points[$i] = $_object;\n";
+              } else {
+                  $objects .= ".add($_object)\n";
+              }
                             
 						} elseif(is_string($_object)) {
                             $js .= "$_object;\n";
 						}
 					}
 				}
-                
-                if($map->use_clusterer){
-                    $js .= "$clusterer\nvar clusterer = new ymaps.Clusterer();clusterer.add(points);";
-                    $objects .= ".add(clusterer)";
-                }
+        
+        if($map->use_clusterer){
+            $js .= "$clusterer\nvar clusterer = new ymaps.Clusterer();clusterer.add(points);";
+            $objects .= ".add(clusterer)";
+        }
                 
 				if (!empty($objects)){
 					$js .= "\nMaps['$id'].geoObjects$objects;\n";

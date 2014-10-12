@@ -78,51 +78,28 @@ echo YandexCanvas::widget([
 
 ### mirocow\yandexmaps\Clusterer ###
 
-```php
+```js
+    for (var i in map_point) {
+    points[i] = new ymaps.GeoObject({
+     geometry : {
+      type: 'Point',
+      coordinates : [map_point[i]['lat'],map_point[i]['lng']]
+     },
+     properties : {
+      balloonContentBody : map_point[i]['body']
+      // hintContent : 'подробнее'
+     }
+    },
+    {
+     iconImageHref: '/i/' + map_point[i]['spec']+'.png',
+     iconImageSize: [29,29],
+     balloonIconImageHref: '/i/' + map_point[i]['spec']+'.png',
+     balloonIconImageSize: [29,29],
+     hasBalloon: true
+    });
+   }
 
-    $points = [];
-    
-    $points[] = new mirocow\yandexmaps\objects\Placemark(
-            [$point->latitude, $point->longitude],
-            [
-                'balloonContentBody' => 'Annonunce text', 
-                'hintContent' => 'next>>>'
-            ],
-            [
-                'iconImageHref' => $img_path,
-                'iconImageSize' => [29, 29],
-                'balloonIconImageHref' => $img_path,
-                'balloonIconImageSize' => [29, 29],
-                'hasBalloon' => true            
-            ]
-        );
-
-    $map = new YandexMap('yandex_map_polygon', 
-        [
-            'center' => ['55.7372', '37.6066'],
-            'zoom' => 10,
-            // Enable zoom with mouse scroll
-            'behaviors' => array('default', 'scrollZoom'),
-            'type' => "yandex#map",
-        ], 
-        [
-            //'minZoom' => 9,
-            //'maxZoom' => 20,
-            'controls' => [
-              "new ymaps.control.SmallZoomControl()",
-              "new ymaps.control.TypeSelector(['yandex#map', 'yandex#satellite'])",  
-            ],
-            'objects' => $points                        
-        ]              
-    );
-    
-    $map->use_clusterer = true;
-
-    echo YandexCanvas::widget([
-            'htmlOptions' => [
-                'style' => 'height: 500px; width: 370px;',
-            ],
-            'map' => $map,
-        ]);
+   var clusterer = new ymaps.Clusterer();
+   clusterer.add(points);
+   map.geoObjects.add(clusterer);
 ```
-
