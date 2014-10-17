@@ -198,8 +198,8 @@ class Api extends Component
                   $objects .= ".add($_object)\n";
               }
                             
-						} elseif(is_string($_object)) {
-                            $js .= "$_object;\n";
+						} elseif(is_string($object)) {
+                            $js .= "$object;\n";
 						}
 					}
 				}
