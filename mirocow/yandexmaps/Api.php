@@ -143,6 +143,7 @@ class Api extends Component
 
 			if (count($object->objects) > 0) {
 				foreach ($object->objects as $object) {
+          if(!$object) continue;
 					if (is_object($object)) {
 						$object = $this->generateObject($object);
 					}
@@ -171,7 +172,8 @@ class Api extends Component
 				$objects = '';
         $clusterer = "var points = [];\n";
         
-				foreach ($map->objects as $i => $object) {
+				foreach ($map->objects as $i => $object) {          
+          if(!$object) continue;
 					if (!is_string($object) && !$object instanceof GeoObject) {
 						if ($objBegin) {
 							$jsObj[] = $object;
@@ -199,7 +201,7 @@ class Api extends Component
               }
                             
 						} elseif(is_string($object)) {
-                            $js .= "$object;\n";
+              $js .= "$object;\n";
 						}
 					}
 				}
