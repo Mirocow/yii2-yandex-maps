@@ -95,7 +95,7 @@ class Api extends Component
 	 */
 	protected function registerScript()
 	{
-		$js = "var Maps = [];\nymaps.ready(function() {\n";
+		$js = "\$Maps = [];\nymaps.ready(function() {\n";
 
 		foreach ($this->_objects as $var => $object) {
 			$js .= $this->generateObject($object, $var)."\n";
@@ -103,7 +103,7 @@ class Api extends Component
 
 		$js .= "});\n";
 		
-		Yii::$app->view->registerJs($js, View::POS_END, self::SCRIPT_ID);
+		Yii::$app->view->registerJs($js, View::POS_READY, self::SCRIPT_ID);
 	}
 
 	public function generateObject($object, $var = null)
@@ -163,7 +163,7 @@ class Api extends Component
 
 		$js = "new ymaps.Map('$id', $state, $options)";
 		if (null !== $var) {
-			$js = "Maps['$var'] = $js;\n";
+			$js = "\$Maps['$var'] = $js;\n";
 
 			if (count($map->objects) > 0) {
                 
@@ -212,7 +212,7 @@ class Api extends Component
         }
                 
 				if (!empty($objects)){
-					$js .= "\nMaps['$id'].geoObjects$objects;\n";
+					$js .= "\n\$Maps['$id'].geoObjects$objects;\n";
 				}
 				if (count($jsObj) > 0) {
 					$objects = '';
@@ -225,7 +225,7 @@ class Api extends Component
 			}
 
 			if (count($map->controls) > 0) {
-				$controls = "\nMaps['$id'].controls";
+				$controls = "\n\$Maps['$id'].controls";
 				foreach ($map->controls as $control) {
 					if (count($control) > 1) {
 						$config = $this->encodeArray($control[1]);
