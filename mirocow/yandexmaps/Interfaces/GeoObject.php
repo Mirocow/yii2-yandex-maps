@@ -8,8 +8,7 @@ namespace mirocow\yandexmaps\Interfaces;
 /**
  * GeoObject interface.
  */
-interface GeoObject
-{
+interface GeoObject {
 	/**
 	 * @param array $feature
 	 * @param array $options

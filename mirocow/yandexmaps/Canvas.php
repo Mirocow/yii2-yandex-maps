@@ -16,22 +16,20 @@ use \yii\base\View;
  * @property Api $api
  * @property Map $map
  */
-class Canvas extends Widget
-{
+class Canvas extends Widget {
 	const EVENT_AFTER_RENDER = 1;
-  
-  private $isRendered = false;
-    
-  /** @var string */
+
+	private $isRendered = false;
+
+	/** @var string */
 	public static $componentId = 'yandexMapsApi';
 
 	/** @var string */
 	public $tagName = 'div';
-  
+
 	/** @var array */
 	public $htmlOptions = array(
-		'class' => 'yandex-map',
-		'style' => 'height: 100%; width: 100%;',
+	  'class' => 'yandex-map', 'style' => 'height: 100%; width: 100%;',
 	);
 
 	/** @var Map */
@@ -40,37 +38,36 @@ class Canvas extends Widget
 	/**
 	 * @return Api
 	 */
-	public function getApi()
-	{
+	public function getApi() {
 		return Yii::$app->getComponent(self::$componentId);
 	}
-    
-  public function init(){
-      Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
-          if(!$this->isRendered){
-            Yii::$app->getComponent('yandexMapsApi')->render();
-            $this->isRendered = true;
-          }
-      });        
-  }
+
+	public function init() {
+		Event::on(View::className(), View::EVENT_AFTER_RENDER,
+		  function ($event) {
+			  if (!$this->isRendered) {
+				  Yii::$app->getComponent('yandexMapsApi')->render();
+				  $this->isRendered = true;
+			  }
+		  });
+	}
 
 	/**
 	 * @return Map
 	 * @throws Exception
 	 */
-	public function getMap()
-	{
+	public function getMap() {
 		if (null === $this->_map) {
 			throw new Exception('Orphan map canvas.');
 		}
+
 		return $this->_map;
 	}
 
 	/**
 	 * @param Map $map
 	 */
-	public function setMap(Map $map)
-	{
+	public function setMap(Map $map) {
 		$this->_map = $map;
 		$this->api->addObject($map, $map->id);
 	}
@@ -78,8 +75,7 @@ class Canvas extends Widget
 	/**
 	 * Run widget.
 	 */
-	public function run()
-	{
+	public function run() {
 		parent::run();
 		$this->htmlOptions['id'] = $this->map->id;
 		echo Html::tag($this->tagName, '', $this->htmlOptions);

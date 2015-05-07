@@ -8,8 +8,7 @@ namespace mirocow\yandexmaps\Interfaces;
 /**
  * GeoObject interface.
  */
-interface GeoObjectCollection
-{
+interface GeoObjectCollection {
 	/**
 	 * @return array
 	 */

@@ -11,24 +11,21 @@ use mirocow\yandexmaps\Interfaces;
  * Objects collection.
  * @property array $objects
  */
-class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectCollection
-{
+class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectCollection {
 	/** @var array */
 	private $_objects = array();
 
 	/**
 	 * @return array
 	 */
-	public function getObjects()
-	{
+	public function getObjects() {
 		return $this->_objects;
 	}
 
 	/**
 	 * @param array $objects
 	 */
-	public function setObjects(array $objects = array())
-	{
+	public function setObjects(array $objects = array()) {
 		$this->_objects = array();
 		foreach ($objects as $object) {
 			$this->addObject($object);
@@ -38,8 +35,7 @@ class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectColle
 	/**
 	 * @param Interfaces\GeoObject $object
 	 */
-	public function addObject($object)
-	{
+	public function addObject($object) {
 		$this->_objects[] = $object;
 	}
 }

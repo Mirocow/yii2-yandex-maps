@@ -8,8 +8,7 @@ namespace mirocow\yandexmaps\Interfaces;
 /**
  * EventAggregate interface.
  */
-interface EventAggregate
-{
+interface EventAggregate {
 	/**
 	 * @return array
 	 */
