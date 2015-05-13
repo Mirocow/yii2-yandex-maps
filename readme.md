@@ -1,5 +1,21 @@
 # Yii2 Yandex Maps Components #
 
+Installation
+------------
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+```
+php composer.phar require "mirocow/yii2-yandex-maps" "*"
+```
+
+or add
+
+```json
+"mirocow/yii2-yandex-maps" : "*"
+```
+
+to the require section of your application's `composer.json` file.
+
 * * *
 
 ## Components ##
