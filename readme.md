@@ -30,6 +30,12 @@ or add
 "mirocow/yii2-yandex-maps" : "*"
 ```
 
+or yii2 beta version
+
+```json
+php composer.phar require -vvv --prefer-dist "mirocow/yii2-yandex-maps" "dev-yii2-beta"
+```
+
 to the require section of your application's `composer.json` file.
 
 * * *
