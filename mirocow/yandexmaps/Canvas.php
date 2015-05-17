@@ -38,19 +38,19 @@ class Canvas extends Widget {
 	/**
 	 * @return Api
 	 */
-	public function getApi() {
-		return Yii::$app->getComponent(self::$componentId);
+	public function getApi()
+	{
+		return Yii::$app->get(self::$componentId);
 	}
-
-	public function init() {
-		Event::on(View::className(), View::EVENT_AFTER_RENDER,
-		  function ($event) {
-			  if (!$this->isRendered) {
-				  Yii::$app->getComponent('yandexMapsApi')->render();
-				  $this->isRendered = true;
-			  }
-		  });
-	}
+    
+  public function init(){
+      Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
+          if(!$this->isRendered){
+            Yii::$app->getApi()->render();
+            $this->isRendered = true;
+          }
+      });
+  }
 
 	/**
 	 * @return Map

@@ -77,10 +77,13 @@ class Api extends Component {
 			$this->packages = implode(',', $this->packages);
 		}
 
-		$url = $this->protocol . '://' . $this->uri . '/' . $this->api_version . '/?lang=' . $this->language . '&load=' . $this->packages;
-
-		Yii::$app->view->registerJsFile($url, [],
-		  ['position' => View::POS_END]);
+		$url = $this->protocol . 
+            '://'.$this->uri.'/' . 
+            $this->api_version
+			.'/?lang=' . $this->language
+			. '&load=' . $this->packages;
+		
+		Yii::$app->view->registerJsFile($url,  ['position' => View::POS_END]);
 	}
 
 	/**
