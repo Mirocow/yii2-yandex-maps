@@ -4,16 +4,18 @@ Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-### Add repositor
+### Add github repository
 
 
 ```json
+{
     "repositories": [
         {
             "type": "git",
             "url": "https://github.com/mirocow/yii2-yandex-maps.git"
         }
     ]
+}    
 ```
 
 and then
