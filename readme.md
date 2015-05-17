@@ -40,8 +40,6 @@ to the require section of your application's `composer.json` file.
 
 * * *
 
-For last Yii2 2.X version please use patch https://github.com/iamruslan/yii2-yandex-maps/commit/fee95f91b4b313424c5041101f57a6b49d0a7276
-
 ## Components ##
 
 - [`mirocow\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsapi)
