@@ -27,8 +27,8 @@ class Api extends Component {
 	public $uri = 'api-maps.yandex.ru';
 
 	/** @var string */
-  /* https://tech.yandex.ru/maps/doc/jsapi/2.1/update/concepts/update-docpage */
-	public $api_version = '2.1';
+  /* https://tech.yandex.ru/maps/doc/jsapi/2.1/versions/concepts/index-docpage */
+	public $api_version = '2.1-dev';
 
 	/** @var string */
 	public $language = 'ru-RU';
