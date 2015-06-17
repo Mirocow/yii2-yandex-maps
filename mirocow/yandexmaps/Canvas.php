@@ -29,7 +29,8 @@ class Canvas extends Widget {
 
 	/** @var array */
 	public $htmlOptions = array(
-	  'class' => 'yandex-map', 'style' => 'height: 100%; width: 100%;',
+	  'class' => 'yandex-map',
+	  'style' => 'height: 100%; width: 100%;',
 	);
 
 	/** @var Map */
@@ -38,19 +39,19 @@ class Canvas extends Widget {
 	/**
 	 * @return Api
 	 */
-	public function getApi()
-	{
+	public function getApi() {
 		return Yii::$app->get(self::$componentId);
 	}
-    
-  public function init(){
-      Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
-          if(!$this->isRendered){
-            Yii::$app->getApi()->render();
-            $this->isRendered = true;
-          }
-      });
-  }
+
+	public function init() {
+		Event::on(View::className(), View::EVENT_AFTER_RENDER,
+		  function ($event) {
+			  if (!$this->isRendered) {
+				  $this->getApi()->render();
+				  $this->isRendered = true;
+			  }
+		  });
+	}
 
 	/**
 	 * @return Map

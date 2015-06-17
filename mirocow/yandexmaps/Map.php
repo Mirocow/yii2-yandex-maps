@@ -48,9 +48,10 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	private $_objects = array();
 	/** @var array */
 	private $_controls = array();
-
 	/** @var array */
 	private $_events = array();
+	/** @var array */
+	private $_behaviors = array();
 
 	/**
 	 * @param string $id
@@ -59,21 +60,32 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 */
 	public function __construct($id = 'myMap', array $state = array(),
 	  array $options = array()) {
+
 		$this->setId($id);
 		$this->state = $state;
+
 		if (isset($options['controls'])) {
 			$this->setControls($options['controls']);
 			unset($options['controls']);
 		}
+
 		if (isset($options['events'])) {
 			$this->setEvents($options['events']);
 			unset($options['events']);
 		}
+
 		if (isset($options['objects'])) {
 			$this->setObjects($options['objects']);
 			unset($options['objects']);
 		}
+
+		if (isset($options['behaviors'])) {
+			$this->setBehaviors($options['behaviors']);
+			unset($options['behaviors']);
+		}
+
 		$this->options = $options;
+
 	}
 
 	/**
@@ -122,6 +134,20 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 */
 	public function getEvents() {
 		return $this->_events;
+	}
+
+	/**
+	 * @param array $behaviors
+	 */
+	public function setBehaviors(array $behaviors) {
+		$this->_behaviors = $behaviors;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getBehaviors() {
+		return $this->_behaviors;
 	}
 
 	/**

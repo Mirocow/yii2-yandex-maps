@@ -20,8 +20,10 @@ class Polyline extends GeoObject {
 	  array $options = array()) {
 		$feature = array(
 		  'geometry' => array(
-			'type' => "LineString", 'coordinates' => $geometry,
-		  ), 'properties' => $properties,
+			'type' => "LineString",
+			'coordinates' => $geometry,
+		  ),
+		  'properties' => $properties,
 		);
 		parent::__construct($feature, $options);
 	}

@@ -27,7 +27,8 @@ class Api extends Component {
 	public $uri = 'api-maps.yandex.ru';
 
 	/** @var string */
-	public $api_version = '2.0-stable';
+	/* https://tech.yandex.ru/maps/doc/jsapi/2.1/versions/concepts/index-docpage */
+	public $api_version = '2.1-dev';
 
 	/** @var string */
 	public $language = 'ru-RU';
@@ -77,13 +78,9 @@ class Api extends Component {
 			$this->packages = implode(',', $this->packages);
 		}
 
-		$url = $this->protocol . 
-            '://'.$this->uri.'/' . 
-            $this->api_version
-			.'/?lang=' . $this->language
-			. '&load=' . $this->packages;
-		
-		Yii::$app->view->registerJsFile($url,  ['position' => View::POS_END]);
+		$url = $this->protocol . '://' . $this->uri . '/' . $this->api_version . '/?lang=' . $this->language . '&load=' . $this->packages;
+
+		Yii::$app->view->registerJsFile($url, ['position' => View::POS_END]);
 	}
 
 	/**
@@ -205,13 +202,28 @@ class Api extends Component {
 				}
 
 				if ($map->use_clusterer) {
-					$js .= "$clusterer\nvar clusterer = new ymaps.Clusterer();clusterer.add(points);";
+					$js .= "$clusterer\n
+            var clusterer = new ymaps.Clusterer();\n            
+            clusterer.add(points);";
+
+					if ($object->clustererOptions) {
+						foreach ($object->clustererOptions as $name => $option) {
+							if (is_array($option)) {
+								$option = $this->encodeArray($option);
+							} else {
+								$option = "'{$option}'";
+							}
+							$js .= "clusterer.options.set('{$name}',{$option});\n";
+						}
+					}
+
 					$objects .= ".add(clusterer)";
 				}
 
 				if (!empty($objects)) {
 					$js .= "\n\$Maps['$id'].geoObjects$objects;\n";
 				}
+
 				if (count($jsObj) > 0) {
 					$objects = '';
 					foreach ($jsObj as $object) {
@@ -220,6 +232,7 @@ class Api extends Component {
 					}
 					$js .= "$objects;\n";
 				}
+
 			}
 
 			if (count($map->controls) > 0) {
@@ -234,6 +247,16 @@ class Api extends Component {
 				}
 				$js .= "$controls;\n";
 			}
+
+			if (count($map->behaviors) > 0) {
+				$behaviors = "\n\$Maps['$id'].behaviors";
+				foreach ($map->behaviors as $config => $behavior) {
+					$config = $this->encodeArray($config);
+					$behaviors .= "\n\t.$behavior($config)";
+				}
+				$js .= "$behaviors;\n";
+			}
+
 		}
 
 		return $js;

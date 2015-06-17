@@ -20,8 +20,10 @@ class Polygon extends GeoObject {
 	  array $options = array()) {
 		$feature = array(
 		  'geometry' => array(
-			'type' => "Polygon", 'coordinates' => $geometry,
-		  ), 'properties' => $properties,
+			'type' => "Polygon",
+			'coordinates' => $geometry,
+		  ),
+		  'properties' => $properties,
 		);
 		parent::__construct($feature, $options);
 	}
@@ -39,7 +41,10 @@ class Polygon extends GeoObject {
 
 		if (is_array($geometry)) {
 			foreach ($geometry as $_points) {
-				$point = [$_points->latitude, $_points->longitude];
+				$point = [
+				  $_points->latitude,
+				  $_points->longitude
+				];
 				$points[] = $point;
 			}
 			if (isset($points)) {

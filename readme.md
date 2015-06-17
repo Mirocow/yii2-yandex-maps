@@ -4,18 +4,16 @@ Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-### Add github repository
+### Add repositor
 
 
 ```json
-{
     "repositories": [
         {
             "type": "git",
             "url": "https://github.com/mirocow/yii2-yandex-maps.git"
         }
     ]
-}    
 ```
 
 and then
@@ -30,15 +28,11 @@ or add
 "mirocow/yii2-yandex-maps" : "*"
 ```
 
-or yii2 beta version
-
-```json
-php composer.phar require -vvv --prefer-dist "mirocow/yii2-yandex-maps" "dev-yii2-beta"
-```
-
 to the require section of your application's `composer.json` file.
 
 * * *
+
+For last Yii2 2.X version please use patch https://github.com/iamruslan/yii2-yandex-maps/commit/fee95f91b4b313424c5041101f57a6b49d0a7276
 
 ## Components ##
 
