@@ -95,7 +95,7 @@ class Api extends Component {
 
 		$js .= "});\n";
 
-		Yii::$app->view->registerJs($js, View::POS_LOAD, self::SCRIPT_ID);
+		Yii::$app->view->registerJs($js, View::POS_READY, self::SCRIPT_ID);
 	}
 
 	public function generateObject($object, $var = null) {
