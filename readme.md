@@ -1,6 +1,6 @@
 # Yii2 Yandex Maps Components #
 
-[![Latest Stable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/stable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Latest Unstable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/unstable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Total Downloads](https://poser.pugx.org/mirocow/yii2-yandex-maps/downloads)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![License](https://poser.pugx.org/mirocow/yii2-yandex-maps/license)](https://packagist.org/packages/mirocow/yii2-yandex-maps) 
+[![Latest Stable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/stable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Latest Unstable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/unstable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Total Downloads](https://poser.pugx.org/mirocow/yii2-yandex-maps/downloads)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Daily Downloads](https://poser.pugx.org/mirocow/yii2-yandex-maps/d/daily)](https://packagist.org/packages/mirocow/yii2-yandex-maps)  [![License](https://poser.pugx.org/mirocow/yii2-yandex-maps/license)](https://packagist.org/packages/mirocow/yii2-yandex-maps) 
 
 Installation
 ------------
