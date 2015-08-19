@@ -1,5 +1,7 @@
 # Yii2 Yandex Maps Components #
 
+[![Latest Stable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/stable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Latest Unstable Version](https://poser.pugx.org/mirocow/yii2-yandex-maps/v/unstable)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![Total Downloads](https://poser.pugx.org/mirocow/yii2-yandex-maps/downloads)](https://packagist.org/packages/mirocow/yii2-yandex-maps) [![License](https://poser.pugx.org/mirocow/yii2-yandex-maps/license)](https://packagist.org/packages/mirocow/yii2-yandex-maps) 
+
 Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
