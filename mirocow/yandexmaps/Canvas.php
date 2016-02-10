@@ -17,7 +17,6 @@ use \yii\base\View;
  * @property Map $map
  */
 class Canvas extends Widget {
-	const EVENT_AFTER_RENDER = 1;
 
 	private $isRendered = false;
 
@@ -44,7 +43,7 @@ class Canvas extends Widget {
 	}
 
 	public function init() {
-		Event::on(View::className(), View::EVENT_AFTER_RENDER,
+		Event::on(View::className(), View::EVENT_END_PAGE,
 		  function ($event) {
 			  if (!$this->isRendered) {
 				  $this->getApi()->render();
