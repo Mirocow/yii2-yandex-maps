@@ -12,13 +12,15 @@ use yii;
 use yii\base\Component;
 use yii\helpers\Json;
 use yii\web\View;
-use StdLib\VarDumper;
 
 /**
  * Yandex Maps API component.
  */
 class Api extends Component {
 	const SCRIPT_ID = 'yandex.maps.api';
+
+	/** @var string */
+	public $protocol = 'http';
 
 	/** @var string */
 	public $uri = 'api-maps.yandex.ru';
@@ -67,6 +69,9 @@ class Api extends Component {
 	 * @see http://api.yandex.ru/maps/doc/jsapi/2.x/dg/concepts/load.xml
 	 */
 	protected function registerScriptFile() {
+		if ('https' !== $this->protocol) {
+			$this->protocol = 'http';
+		}
 
 		if (is_array($this->packages)) {
 			$this->packages = implode(',', $this->packages);
