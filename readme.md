@@ -72,7 +72,7 @@ Map instance.
 __Usage__
 
 ```php
-    $map = new YandexMap('yandex_map', [
+    $map = new \mirocow\yandexmaps\Map('yandex_map', [
             'center' => [55.7372, 37.6066],
             'zoom' => 10,
             // Enable zoom with mouse scroll
@@ -100,9 +100,7 @@ __Usage__
 Simple add widget to view:
 ```php
 
-use mirocow\yandexmaps\Canvas as YandexCanvas;
-
-echo YandexCanvas::widget([
+echo \mirocow\yandexmaps\Canvas::widget([
         'htmlOptions' => [
             'style' => 'height: 400px;',
         ],
