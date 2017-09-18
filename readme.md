@@ -41,9 +41,9 @@ For last Yii2 2.X version please use patch https://github.com/iamruslan/yii2-yan
 - [`mirocow\yandexmaps\Api`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsapi)
 - [`mirocow\yandexmaps\Map`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsmap)
 - [`mirocow\yandexmaps\Canvas`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapscanvas)
-- `mirocow\yandexmaps\JavaScript`
-- `mirocow\yandexmaps\Placemark`
-- `mirocow\yandexmaps\Polyline`
+- [`mirocow\yandexmaps\Placemark`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsplacemark)
+- [`mirocow\yandexmaps\Controls`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapscontrols)
+- [`mirocow\yandexmaps\Polyline`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapspolyline)
 - TODO: [Geo XML](http://api.yandex.ru/maps/doc/jsapi/2.x/dg/concepts/geoxml.xml)
 - TODO: [GeoObject](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/GeoObject.xml)
 - TODO: [Balloon](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Balloon.xml)
@@ -91,6 +91,34 @@ __Usage__
     );             
 ```
 
+### mirocow\yandexmaps\Controls ###
+
+```php
+      'controls' => [
+          // v 2.1
+          'new ymaps.control.ZoomControl({options: {size: "small"}})',
+          //'new ymaps.control.TrafficControl({options: {size: "small"}})',
+          //'new ymaps.control.GeolocationControl({options: {size: "small"}})',
+          'search' => 'new ymaps.control.SearchControl({options: {size: "small"}})',
+          //'new ymaps.control.FullscreenControl({options: {size: "small"}})',
+          //'new ymaps.control.RouteEditor({options: {size: "small"}})',
+      ],
+```
+
+### mirocow\yandexmaps\Placemark ###
+
+```php
+    $placemark = new mirocow\yandexmaps\objects\Placemark([
+            55.7372,
+            37.6066
+    ], [
+
+    ], [
+            'draggable' => true
+      ]
+    );
+```
+
 ### mirocow\yandexmaps\Canvas ###
 
 This is widget which render html tag for your map.
@@ -135,3 +163,7 @@ echo \mirocow\yandexmaps\Canvas::widget([
    clusterer.add(points);
    map.geoObjects.add(clusterer);
 ```
+
+### mirocow\yandexmaps\Polyline ###
+
+TODO:
