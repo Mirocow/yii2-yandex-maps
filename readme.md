@@ -42,10 +42,11 @@ For last Yii2 2.X version please use patch https://github.com/iamruslan/yii2-yan
 - [`mirocow\yandexmaps\Map`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsmap)
 - [`mirocow\yandexmaps\Canvas`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapscanvas)
 - [`mirocow\yandexmaps\Placemark`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsplacemark)
+- [`mirocow\yandexmaps\Polygon`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapspolygon)
 - [`mirocow\yandexmaps\Controls`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapscontrols)
 - [`mirocow\yandexmaps\Polyline`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapspolyline)
+- [`mirocow\yandexmaps\GeoObject`](https://github.com/mirocow/yii2-yandex-maps#mirocowyandexmapsgeoobject)
 - TODO: [Geo XML](http://api.yandex.ru/maps/doc/jsapi/2.x/dg/concepts/geoxml.xml)
-- TODO: [GeoObject](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/GeoObject.xml)
 - TODO: [Balloon](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Balloon.xml)
 - TODO: [Hint](http://api.yandex.ru/maps/doc/jsapi/2.x-stable/ref/reference/Hint.xml)
 - TODO: [Clusterer](http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml)
@@ -91,34 +92,6 @@ __Usage__
     );             
 ```
 
-### mirocow\yandexmaps\Controls ###
-
-```php
-      'controls' => [
-          // v 2.1
-          'new ymaps.control.ZoomControl({options: {size: "small"}})',
-          //'new ymaps.control.TrafficControl({options: {size: "small"}})',
-          //'new ymaps.control.GeolocationControl({options: {size: "small"}})',
-          'search' => 'new ymaps.control.SearchControl({options: {size: "small"}})',
-          //'new ymaps.control.FullscreenControl({options: {size: "small"}})',
-          //'new ymaps.control.RouteEditor({options: {size: "small"}})',
-      ],
-```
-
-### mirocow\yandexmaps\Placemark ###
-
-```php
-    $placemark = new mirocow\yandexmaps\objects\Placemark([
-            55.7372,
-            37.6066
-    ], [
-
-    ], [
-            'draggable' => true
-      ]
-    );
-```
-
 ### mirocow\yandexmaps\Canvas ###
 
 This is widget which render html tag for your map.
@@ -136,7 +109,41 @@ echo \mirocow\yandexmaps\Canvas::widget([
     ]);
 ```
 
-### mirocow\yandexmaps\Clusterer ###
+### mirocow\yandexmaps\Controls ###
+
+```php
+      'controls' => [
+          // v 2.1
+          'new ymaps.control.ZoomControl({options: {size: "small"}})',
+          //'new ymaps.control.TrafficControl({options: {size: "small"}})',
+          //'new ymaps.control.GeolocationControl({options: {size: "small"}})',
+          'search' => 'new ymaps.control.SearchControl({options: {size: "small"}})',
+          //'new ymaps.control.FullscreenControl({options: {size: "small"}})',
+          //'new ymaps.control.RouteEditor({options: {size: "small"}})',
+      ],
+```
+
+### mirocow\yandexmaps\GeoObject ###
+
+#### mirocow\yandexmaps\Placemark ####
+
+```php
+    $placemark = new mirocow\yandexmaps\objects\Placemark([
+            55.7372,
+            37.6066
+    ], [
+
+    ], [
+            'draggable' => true
+      ]
+    );
+```
+
+#### mirocow\yandexmaps\Polygon ####
+
+TODO:
+
+#### mirocow\yandexmaps\Clusterer ####
 
 ```js
     for (var i in map_point) {
@@ -164,6 +171,6 @@ echo \mirocow\yandexmaps\Canvas::widget([
    map.geoObjects.add(clusterer);
 ```
 
-### mirocow\yandexmaps\Polyline ###
+#### mirocow\yandexmaps\Polyline ####
 
 TODO:
