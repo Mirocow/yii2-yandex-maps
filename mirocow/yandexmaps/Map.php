@@ -162,8 +162,8 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 */
 	public function setObjects(array $objects = array()) {
 		$this->_objects = array();
-		foreach ($objects as $object) {
-			$this->addObject($object);
+		foreach ($objects as $key => $object) {
+			$this->addObject($object, $key);
 		}
 	}
 
@@ -171,8 +171,12 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 * @param mixed $object
 	 * @return Map
 	 */
-	public function addObject($object) {
-		$this->_objects[] = $object;
+	public function addObject($object, $key = null) {
+        if (null === $key) {
+            $this->_objects[] = $object;
+        } else {
+            $this->_objects[$key] = $object;
+        }
 
 		return $this;
 	}
@@ -189,8 +193,8 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 */
 	public function setControls(array $controls) {
 		$this->_controls = array();
-		foreach ($controls as $control) {
-			$this->addControl($control);
+		foreach ($controls as $key => $control) {
+			$this->addControl($control, $key);
 		}
 	}
 
@@ -207,13 +211,16 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 * @throws Exception
 	 * @todo Add control interface.
 	 */
-	public function addControl($control) {
+	public function addControl($control, $key = null) {
 		if (is_string($control)) {
 			$control = array($control);
 		} elseif (is_array($control) && (!isset($control[0]) || !is_string($control[0]))) {
 			throw new Exception('Invalid control.');
 		}
-		$this->_controls[$control[0]] = $control;
+
+        $key = is_null($key)? $control[0]: $key;
+
+		$this->_controls[$key] = $control;
 
 		return $this;
 	}

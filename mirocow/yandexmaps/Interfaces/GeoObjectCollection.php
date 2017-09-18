@@ -19,8 +19,10 @@ interface GeoObjectCollection {
 	 */
 	public function setObjects(array $objects = array());
 
-	/**
-	 * @param mixed $object
-	 */
-	public function addObject($object);
+    /**
+     * @param $object
+     * @param $name
+     * @return mixed
+     */
+	public function addObject($object, $key = null);
 }

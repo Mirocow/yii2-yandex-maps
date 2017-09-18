@@ -27,15 +27,22 @@ class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectColle
 	 */
 	public function setObjects(array $objects = array()) {
 		$this->_objects = array();
-		foreach ($objects as $object) {
-			$this->addObject($object);
+		foreach ($objects as $key => $object) {
+			$this->addObject($object, $key);
 		}
 	}
 
-	/**
-	 * @param Interfaces\GeoObject $object
-	 */
-	public function addObject($object) {
-		$this->_objects[] = $object;
+    /**
+     * @param $object
+     * @param $key
+     */
+	public function addObject($object, $key = null) {
+        if (null === $key) {
+            $this->_objects[] = $object;
+        } else {
+            $this->_objects[$key] = $object;
+        }
+
+        return $this;
 	}
 }

@@ -27,7 +27,7 @@ class Api extends Component {
 
 	/** @var string */
 	/* https://tech.yandex.ru/maps/doc/jsapi/2.1/versions/concepts/index-docpage */
-	public $api_version = '2.1-dev';
+	public $api_version = '2.1';
 
 	/** @var string */
 	public $language = 'ru-RU';
@@ -110,7 +110,7 @@ class Api extends Component {
 					foreach ($object->getEvents() as $event => $handle) {
 						$event = Json::encode($event);
 						$handle = Json::encode($handle);
-						$events .= "\n.add($event, $handle)";
+						$events .= "\n\t.add($event, $handle)";
 					}
 					$js .= "$events;\n";
 				}
@@ -152,9 +152,41 @@ class Api extends Component {
 		$state = $this->encodeArray($map->state);
 		$options = $this->encodeArray($map->options);
 
-		$js = "new ymaps.Map('$id', $state, $options)";
+		$js = "new ymaps.Map('{$id}', $state, $options)";
 		if (null !== $var) {
 			$js = "\$Maps['$var'] = $js;\n";
+
+            if (count($map->controls) > 0) {
+                $controls = "\n\$Maps['{$id}'].controls";
+                foreach ($map->controls as $key => $control) {
+                    if (count($control) > 1) {
+                        $config = $this->encodeArray($control[1]);
+                        if (is_numeric($key)) {
+                            $controls .= "\n\t.add($_object, {$config})\n";
+                        } else {
+                            $js .= "var $key = {$control[0]};\n";
+                            $controls .= "\n\t.add({$key}, {$config})\n";
+                        }
+                    } else {
+                        if (is_numeric($key)) {
+                            $controls .= "\n\t.add({$control[0]})\n";
+                        } else {
+                            $js .= "var $key = {$control[0]};\n";
+                            $controls .= "\n\t.add({$key})\n";
+                        }
+                    }
+                }
+                $js .= "$controls;\n";
+            }
+
+            if (count($map->behaviors) > 0) {
+                $behaviors = "\n\$Maps['$id'].behaviors";
+                foreach ($map->behaviors as $config => $behavior) {
+                    $config = $this->encodeArray($config);
+                    $behaviors .= "\n\t.$behavior($config)";
+                }
+                $js .= "$behaviors;\n";
+            }
 
 			if (count($map->objects) > 0) {
 
@@ -163,7 +195,7 @@ class Api extends Component {
 				$objects = '';
 				$clusterer = "var points = [];\n";
 
-				foreach ($map->objects as $i => $object) {
+				foreach ($map->objects as $key => $object) {
 					if (!$object) {
 						continue;
 					}
@@ -185,13 +217,18 @@ class Api extends Component {
 						$objBegin = true;
 						// Load only GeoObjects instanceof GeoObject
 						if ($object instanceof GeoObject) {
-							$_object = $this->generateObject($object);
+							$_object = $this->generateObject($object, $key);
 
 							// use Clusterer
 							if ($map->use_clusterer && $object instanceof objects\Placemark) {
-								$clusterer .= "points[$i] = $_object;\n";
+								$clusterer .= "points[{$key}] = $_object;\n";
 							} else {
-								$objects .= ".add($_object)\n";
+                                if (is_numeric($key)) {
+                                    $objects .= "\n\t.add($_object)\n";
+                                } else {
+                                    $js .= $_object;
+                                    $objects .= "\n\t.add({$key})\n";
+                                }
 							}
 
 						} elseif (is_string($object)) {
@@ -216,11 +253,11 @@ class Api extends Component {
 						}
 					}
 
-					$objects .= ".add(clusterer)";
+					$objects .= "\n\t.add(clusterer)";
 				}
 
 				if (!empty($objects)) {
-					$js .= "\n\$Maps['$id'].geoObjects$objects;\n";
+					$js .= "\n\$Maps['$id'].geoObjects{$objects};\n";
 				}
 
 				if (count($jsObj) > 0) {
@@ -233,29 +270,6 @@ class Api extends Component {
 				}
 
 			}
-
-			if (count($map->controls) > 0) {
-				$controls = "\n\$Maps['$id'].controls";
-				foreach ($map->controls as $control) {
-					if (count($control) > 1) {
-						$config = $this->encodeArray($control[1]);
-						$controls .= "\n\t.add($control[0], $config)";
-					} else {
-						$controls .= "\n\t.add($control[0])";
-					}
-				}
-				$js .= "$controls;\n";
-			}
-
-			if (count($map->behaviors) > 0) {
-				$behaviors = "\n\$Maps['$id'].behaviors";
-				foreach ($map->behaviors as $config => $behavior) {
-					$config = $this->encodeArray($config);
-					$behaviors .= "\n\t.$behavior($config)";
-				}
-				$js .= "$behaviors;\n";
-			}
-
 		}
 
 		return $js;
