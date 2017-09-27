@@ -19,16 +19,16 @@ class GeoObject extends JavaScript implements Interfaces\GeoObject, Interfaces\E
 	/** @var array */
 	private $_feature;
 	/** @var array */
-	private $_options = array();
+	private $_options = [];
 
 	/** @var array */
-	private $_events = array();
+	private $_events = [];
 
 	/**
 	 * @param array $feature
 	 * @param array $options
 	 */
-	public function __construct(array $feature, array $options = array()) {
+	public function __construct(array $feature, array $options = []) {
 		if (isset($options['events'])) {
 			$this->setEvents($options['events']);
 			unset($options['events']);
@@ -97,7 +97,7 @@ class GeoObject extends JavaScript implements Interfaces\GeoObject, Interfaces\E
 	 * @return array
 	 */
 	public function getGeometry() {
-		return isset($this->_feature['geometry']) ? $this->_feature['geometry'] : array();
+		return isset($this->_feature['geometry']) ? $this->_feature['geometry'] : [];
 	}
 
 	/**
@@ -111,7 +111,7 @@ class GeoObject extends JavaScript implements Interfaces\GeoObject, Interfaces\E
 	 * @return array
 	 */
 	public function getProperties() {
-		return isset($this->_feature['properties']) ? $this->_feature['properties'] : array();
+		return isset($this->_feature['properties']) ? $this->_feature['properties'] : [];
 	}
 
 	/**

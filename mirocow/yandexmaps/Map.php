@@ -36,30 +36,29 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	const BEHAVIOR_ROUTE_EDITOR = 'routeEditor';
 
 	/** @var array */
-	public $state = array();
+	public $state = [];
 	/** @var array */
-	public $options = array();
-
+	public $options = [];
+	/** @var bool  */
 	public $use_clusterer = false;
-
 	/** @var string */
 	private $_id;
 	/** @var array */
-	private $_objects = array();
+	private $_objects = [];
 	/** @var array */
-	private $_controls = array();
+	private $_controls = [];
 	/** @var array */
-	private $_events = array();
+	private $_events = [];
 	/** @var array */
-	private $_behaviors = array();
+	private $_behaviors = [];
 
 	/**
 	 * @param string $id
 	 * @param array $state
 	 * @param array $options
 	 */
-	public function __construct($id = 'myMap', array $state = array(),
-	  array $options = array()) {
+	public function __construct($id = 'myMap', array $state = [],
+	  array $options = []) {
 
 		$this->setId($id);
 		$this->state = $state;
@@ -160,8 +159,8 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	/**
 	 * @param array $objects
 	 */
-	public function setObjects(array $objects = array()) {
-		$this->_objects = array();
+	public function setObjects(array $objects = []) {
+		$this->_objects = [];
 		foreach ($objects as $key => $object) {
 			$this->addObject($object, $key);
 		}
@@ -192,7 +191,7 @@ class Map extends JavaScript implements Interfaces\GeoObjectCollection, Interfac
 	 * @param array $controls
 	 */
 	public function setControls(array $controls) {
-		$this->_controls = array();
+		$this->_controls = [];
 		foreach ($controls as $key => $control) {
 			$this->addControl($control, $key);
 		}

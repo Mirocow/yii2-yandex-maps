@@ -13,7 +13,7 @@ use mirocow\yandexmaps\Interfaces;
  */
 class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectCollection {
 	/** @var array */
-	private $_objects = array();
+	private $_objects = [];
 
 	/**
 	 * @return array
@@ -25,8 +25,8 @@ class GeoObjectCollection extends GeoObject implements Interfaces\GeoObjectColle
 	/**
 	 * @param array $objects
 	 */
-	public function setObjects(array $objects = array()) {
-		$this->_objects = array();
+	public function setObjects(array $objects = []) {
+		$this->_objects = [];
 		foreach ($objects as $key => $object) {
 			$this->addObject($object, $key);
 		}

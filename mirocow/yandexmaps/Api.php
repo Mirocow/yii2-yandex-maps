@@ -35,7 +35,7 @@ class Api extends Component {
 	public $packages = array('package.full');
 
 	/** @var array */
-	private $_objects = array();
+	private $_objects = [];
 
 	/**
 	 * @param mixed $key
@@ -97,11 +97,10 @@ class Api extends Component {
 		Yii::$app->view->registerJs($js, View::POS_READY, self::SCRIPT_ID);
 	}
 
-	public function generateObject($object, $var = null) {
+	public function generateObject($object, &$var = null) {
 		$class = get_class($object);
 		$generator = 'generate' . substr($class, strrpos($class, '\\') + 1);
 		if (method_exists($this, $generator)) {
-			$var = is_numeric($var) ? null : $var;
 			$js = $this->$generator($object, $var);
 
 			if ($object instanceof Interfaces\EventAggregate && count($object->getEvents()) > 0) {
@@ -109,7 +108,6 @@ class Api extends Component {
 					$events = "\n$var.events";
 					foreach ($object->getEvents() as $event => $handle) {
 						$event = Json::encode($event);
-						$handle = Json::encode($handle);
 						$events .= "\n\t.add($event, $handle)";
 					}
 					$js .= "$events;\n";
@@ -190,10 +188,12 @@ class Api extends Component {
 
 			if (count($map->objects) > 0) {
 
-				$jsObj = array();
+				$jsObj = [];
 				$objBegin = false;
 				$objects = '';
-				$clusterer = "var points = [];\n";
+				if($map->use_clusterer) {
+                    $js .= "var points = [];\n";
+                }
 
 				foreach ($map->objects as $key => $object) {
 					if (!$object) {
@@ -217,17 +217,19 @@ class Api extends Component {
 						$objBegin = true;
 						// Load only GeoObjects instanceof GeoObject
 						if ($object instanceof GeoObject) {
+						    $index = $key;
 							$_object = $this->generateObject($object, $key);
 
 							// use Clusterer
 							if ($map->use_clusterer && $object instanceof objects\Placemark) {
-								$clusterer .= "points[{$key}] = $_object;\n";
+                                $js .= "$_object;\n";
+                                $js .= "points[{$index}] = {$key};\n";
 							} else {
                                 if (is_numeric($key)) {
-                                    $objects .= "\n\t.add($_object)\n";
+                                    $objects .= "\n\t.add($_object)";
                                 } else {
                                     $js .= $_object;
-                                    $objects .= "\n\t.add({$key})\n";
+                                    $objects .= "\n\t.add({$key})";
                                 }
 							}
 
@@ -238,8 +240,7 @@ class Api extends Component {
 				}
 
 				if ($map->use_clusterer) {
-					$js .= "$clusterer\n
-						var clusterer = new ymaps.Clusterer();\n
+					$js .= "var clusterer = new ymaps.Clusterer();\n
 						clusterer.add(points);";
 
 					if ($object->clustererOptions) {
@@ -275,50 +276,59 @@ class Api extends Component {
 		return $js;
 	}
 
-	public function generatePlacemark(objects\Placemark $object, $var = null) {
+	public function generatePlacemark(objects\Placemark $object, &$var = null) {
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);
 		$options = $this->encodeArray($object->options);
+
+		if(is_numeric($var)){
+            $var = "obj_{$var}";
+        }
 
 		$js = "new ymaps.Placemark($geometry, $properties, $options)";
-		if (null !== $var) {
-			$js = "var $var = $js;\n";
-		}
+        $js = "var $var = $js;\n";
 
 		return $js;
 	}
 
-	public function generatePolyline(objects\Polyline $object, $var = null) {
+	public function generatePolyline(objects\Polyline $object, &$var = null) {
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);
 		$options = $this->encodeArray($object->options);
+
+        if(is_numeric($var)){
+            $var = "obj_{$var}";
+        }
 
 		$js = "new ymaps.Polyline($geometry, $properties, $options)";
-		if (null !== $var) {
-			$js = "var $var = $js;\n";
-		}
+        $js = "var $var = $js;\n";
 
 		return $js;
 	}
 
-	public function generatePolygon(objects\Polygon $object, $var = null) {
+	public function generatePolygon(objects\Polygon $object, &$var = null) {
 		$geometry = Json::encode($object->geometry);
 		$properties = $this->encodeArray($object->properties);
 		$options = $this->encodeArray($object->options);
 
+        if(is_numeric($var)){
+            $var = "obj_{$var}";
+        }
+
 		$js = "new ymaps.Polygon($geometry, $properties, $options)";
-		if (null !== $var) {
-			$js = "var $var = $js;\n";
-		}
+        $js = "var $var = $js;\n";
 
 		return $js;
 	}
 
-	public function generateJavaScript(JavaScript $object, $var = null) {
+	public function generateJavaScript(JavaScript $object, &$var = null) {
 		$js = $object->code;
-		if (null !== $var) {
-			$js = "var $var = $js;\n";
-		}
+
+        if(is_numeric($var)){
+            $var = "obj_{$var}";
+        }
+
+        $js = "var $var = $js;\n";
 
 		return $js;
 	}

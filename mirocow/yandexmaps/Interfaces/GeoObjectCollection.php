@@ -17,7 +17,7 @@ interface GeoObjectCollection {
 	/**
 	 * @param array $objects
 	 */
-	public function setObjects(array $objects = array());
+	public function setObjects(array $objects = []);
 
     /**
      * @param $object

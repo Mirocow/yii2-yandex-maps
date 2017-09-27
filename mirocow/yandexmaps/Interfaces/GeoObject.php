@@ -13,7 +13,7 @@ interface GeoObject {
 	 * @param array $feature
 	 * @param array $options
 	 */
-	public function __construct(array $feature, array $options = array());
+	public function __construct(array $feature, array $options = []);
 
 	/**
 	 * @return array

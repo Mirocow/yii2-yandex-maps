@@ -16,15 +16,15 @@ class Polyline extends GeoObject {
 	 * @param array $properties
 	 * @param array $options
 	 */
-	public function __construct(array $geometry, array $properties = array(),
-	  array $options = array()) {
-		$feature = array(
-		  'geometry' => array(
+	public function __construct(array $geometry, array $properties = [],
+	  array $options = []) {
+		$feature = [
+		  'geometry' => [
 			'type' => "LineString",
 			'coordinates' => $geometry,
-		  ),
+		  ],
 		  'properties' => $properties,
-		);
+		];
 		parent::__construct($feature, $options);
 	}
 

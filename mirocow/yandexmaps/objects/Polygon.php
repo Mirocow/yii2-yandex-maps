@@ -16,15 +16,15 @@ class Polygon extends GeoObject {
 	 * @param array $properties
 	 * @param array $options
 	 */
-	public function __construct(array $geometry, array $properties = array(),
-	  array $options = array()) {
-		$feature = array(
-		  'geometry' => array(
+	public function __construct(array $geometry, array $properties = [],
+	  array $options = []) {
+		$feature = [
+		  'geometry' => [
 			'type' => "Polygon",
 			'coordinates' => $geometry,
-		  ),
+		  ],
 		  'properties' => $properties,
-		);
+		];
 		parent::__construct($feature, $options);
 	}
 

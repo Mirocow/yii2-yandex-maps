@@ -12,6 +12,7 @@ use mirocow\yandexmaps\GeoObject;
  */
 class Placemark extends GeoObject {
 
+    /** @var string  */
 	public $clustererOptions = '';
 
 	/**
@@ -19,15 +20,15 @@ class Placemark extends GeoObject {
 	 * @param array $properties
 	 * @param array $options
 	 */
-	public function __construct(array $geometry, array $properties = array(),
-	  array $options = array()) {
-		$feature = array(
-		  'geometry' => array(
+	public function __construct(array $geometry, array $properties = [],
+	  array $options = []) {
+		$feature = [
+		  'geometry' => [
 			'type' => "Point",
 			'coordinates' => $geometry,
-		  ),
+		  ],
 		  'properties' => $properties,
-		);
+		];
 		parent::__construct($feature, $options);
 	}
 
