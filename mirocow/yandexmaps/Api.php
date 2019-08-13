@@ -61,7 +61,9 @@ class Api extends Component {
 	}
 
 	protected function encodeArray($array) {
-		return count($array) > 0 ? Json::encode($array) : '{}';
+	    if(is_array($array)) {
+            return count($array) > 0? Json::encode($array): '{}';
+        }
 	}
 
 	/**
