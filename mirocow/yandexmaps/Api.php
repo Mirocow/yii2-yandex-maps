@@ -182,7 +182,11 @@ class Api extends Component {
             if (count($map->behaviors) > 0) {
                 $behaviors = "\n\$Maps['$id'].behaviors";
                 foreach ($map->behaviors as $config => $behavior) {
-                    $config = $this->encodeArray($config);
+                    if(is_array($config) || is_object($config)) {
+                        $config = $this->encodeArray($config);
+                    } elseif(is_string($config)){
+                        $config = "'$config'";
+                    }
                     $behaviors .= "\n\t.$behavior($config)";
                 }
                 $js .= "$behaviors;\n";
