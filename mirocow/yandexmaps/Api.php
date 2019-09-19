@@ -19,22 +19,41 @@ use yii\web\View;
 class Api extends Component {
 	const SCRIPT_ID = 'yandex.maps.api';
 
-	/** @var string */
+    /**
+     * @var string
+     */
 	public $protocol = 'http';
 
-	/** @var string */
+    /**
+     * @var string
+     */
 	public $uri = 'api-maps.yandex.ru';
 
-	/** @var string */
-	/* https://tech.yandex.ru/maps/doc/jsapi/2.1/versions/concepts/index-docpage */
+    /**
+     * @var string
+     * @see https://tech.yandex.ru/maps/doc/jsapi/2.1/versions/concepts/index-docpage
+     */
 	public $api_version = '2.1';
 
-	/** @var string */
+    /**
+     * @var string
+     * @see https://developer.tech.yandex.ru
+     */
+	public $apikey;
+
+    /**
+     * @var string
+     */
 	public $language = 'ru-RU';
-	/** @var array */
+
+    /**
+     * @var array
+     */
 	public $packages = array('package.full');
 
-	/** @var array */
+    /**
+     * @var array
+     */
 	private $_objects = [];
 
 	/**
@@ -79,7 +98,7 @@ class Api extends Component {
 			$this->packages = implode(',', $this->packages);
 		}
 
-		$url = '//' . $this->uri . '/' . $this->api_version . '/?lang=' . $this->language . '&load=' . $this->packages;
+		$url = '//' . $this->uri . '/' . $this->api_version . '/?lang=' . $this->language . (!empty($this->apikey)? '&apikey=' . $this->apikey: '') . '&load=' . $this->packages;
 
 		Yii::$app->view->registerJsFile($url, ['position' => View::POS_END]);
 	}
