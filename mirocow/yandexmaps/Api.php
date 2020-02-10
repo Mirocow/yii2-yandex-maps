@@ -293,11 +293,14 @@ class Api extends Component
 
                 if (!empty($objects)) {
                     $js .= "\$Maps['$id'].geoObjects{$objects};";
-                    // Set center and zoom using collection bounds.
-                    if($object instanceof objects\Placemark) {
-                        $js .= "\$Maps['$id'].setBounds(clusterer.getBounds(), { checkZoomRange: true });\n";
+                    if ($map->use_clusterer) {
+                        // Set center and zoom using collection bounds.
+                        if ($object instanceof objects\Placemark) {
+                            $js .= "\$Maps['$id'].setBounds(clusterer.getBounds(), { checkZoomRange: true });\n";
+                        }
                     }
                 }
+
 
                 if (count($jsObj) > 0) {
                     $objects = '';
